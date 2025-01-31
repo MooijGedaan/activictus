@@ -107,16 +107,28 @@ export default function Home() {
 
   const addAanwezigheid = async (id: string) => {
     const supabase = createClient();
-    let person = "";
 
-    if (document.cookie) {
-      person = document.cookie.split("=")[1];
-      if (!person) {
-        nameInput();
-        person = document.cookie.split("=")[1];
-      }
+    const cookies = document.cookie.split(";");
+    let nameCookie = cookies.find((cookie) =>
+      cookie.trim().startsWith("name=")
+    );
+
+    let person;
+    if (nameCookie) {
+      person = nameCookie.split("=")[1];
+    } else {
+      nameInput();
+      const newCookies = document.cookie.split(";");
+      nameCookie = newCookies.find((cookie) =>
+        cookie.trim().startsWith("name=")
+      );
+      person = nameCookie ? nameCookie.split("=")[1] : null;
     }
 
+    if (!person) {
+      alert("Er is een probleem opgetreden bij het verkrijgen van de naam.");
+      return;
+    }
     const activiteit = activiteiten.find((act) => act.id === id);
     if (activiteit && activiteit.attendees.includes(person)) {
       alert("Je bent al geregistreerd voor deze activiteit.");
