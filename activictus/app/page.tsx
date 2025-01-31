@@ -26,21 +26,22 @@ export default function Home() {
         return;
       }
 
-      const cleanedData = activiteitenData.map((activiteit) => {
-        const attendees = inschrijvingenData
-          .filter(
-            (inschrijving) => inschrijving.activiteit_id === activiteit.id
-          )
-          .map((inschrijving) => inschrijving.naam_lid);
+      if (activiteitenData && inschrijvingenData) {
+        const cleanedData = activiteitenData.map((activiteit) => {
+          const attendees = inschrijvingenData
+            .filter(
+              (inschrijving) => inschrijving.activiteit_id === activiteit.id
+            )
+            .map((inschrijving) => inschrijving.naam_lid);
 
-        return {
-          ...activiteit,
-          Datum: activiteit.Datum.split("T")[0],
-          attendees,
-        };
-      });
-
-      setActiviteiten(cleanedData);
+          return {
+            ...activiteit,
+            Datum: activiteit.Datum.split("T")[0],
+            attendees,
+          };
+        });
+        setActiviteiten(cleanedData);
+      }
     };
 
     fetchData();
