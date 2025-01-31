@@ -40,6 +40,8 @@ export default function Home() {
             attendees,
           };
         });
+
+        console.log(cleanedData);
         setActiviteiten(cleanedData);
       }
     };
@@ -81,7 +83,9 @@ export default function Home() {
   const startOfWeek = getStartOfWeek(currentDate);
 
   const formatDate = (date: Date): string => {
-    return date.toISOString().split("T")[0]; // Format as YYYY-MM-DD for comparison
+    const offset = date.getTimezoneOffset();
+    const adjustedDate = new Date(date.getTime() - offset * 60 * 1000);
+    return adjustedDate.toISOString().split("T")[0]; // Format as YYYY-MM-DD for comparison
   };
 
   const nameInput = () => {
