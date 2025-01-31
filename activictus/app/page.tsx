@@ -112,27 +112,26 @@ export default function Home() {
   const addAanwezigheid = async (id: string) => {
     const supabase = createClient();
 
-    const cookies = document.cookie.split(";");
-    let nameCookie = cookies.find((cookie) =>
-      cookie.trim().startsWith("name=")
-    );
-
-    let person;
-    if (nameCookie) {
-      person = nameCookie.split("=")[1];
-    } else {
-      nameInput();
-      const newCookies = document.cookie.split(";");
-      nameCookie = newCookies.find((cookie) =>
+    const getNameFromCookies = () => {
+      const cookies = document.cookie.split(";");
+      const nameCookie = cookies.find((cookie) =>
         cookie.trim().startsWith("name=")
       );
-      person = nameCookie ? nameCookie.split("=")[1] : null;
+      return nameCookie ? nameCookie.split("=")[1] : null;
+    };
+
+    let person = getNameFromCookies();
+
+    while (!person || person === "null") {
+      nameInput();
+      person = getNameFromCookies();
     }
 
     if (!person) {
       alert("Er is een probleem opgetreden bij het verkrijgen van de naam.");
       return;
     }
+
     const activiteit = activiteiten.find((act) => act.id === id);
     if (activiteit && activiteit.attendees.includes(person)) {
       alert("Je bent al geregistreerd voor deze activiteit.");
@@ -156,7 +155,7 @@ export default function Home() {
   };
 
   return (
-    <div className="">
+    <div className=" max-w-lg">
       <div className="flex justify-between space-x-20 mb-12">
         <h2 className="text-2xl bold">Week {weekNumber}</h2>
         <button className="" onClick={prevWeek}>
@@ -164,7 +163,7 @@ export default function Home() {
         </button>
         <button onClick={nextWeek}>Volgende Week</button>
       </div>
-      <div className="space-y-8">
+      <div className="space-y-8 w-full">
         {daysOfWeek.map((day, index) => {
           const activiteitenOpDag = activiteiten.filter(
             (a) => a.Datum === day.iso
