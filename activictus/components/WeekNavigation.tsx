@@ -63,29 +63,39 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
           selectedDate={selectedDate}
         />
       )}
-      <h2 className="md:text-4xl text-xl font-medium">Week {weekNumber}</h2>
+      <div className="md:flex md:items-center">
+        <h2 className="md:text-4xl text-2xl font-medium">Week {weekNumber}</h2>
 
-      <div className="flex items-center md:space-x-9 space-x-2">
-        <ChevronLeftIcon
+        <button
+          onClick={() => {
+            handleSetIsModalOpen(true);
+          }}
+          className="text-sm bg-black text-white md:px-4 px-2 md:py-2 py-1 mt-4 md:mt-0 md:ml-4"
+        >
+          Voeg activiteit toe
+        </button>
+      </div>
+
+      <div className="flex items-stretch">
+        <div
           onClick={prevWeek}
-          className="cursor-pointer h-5 w-5"
-        />
-        <a onClick={setToCurrentWeek} className="text-sm cursor-pointer">
+          className="flex-1 border-2 border-black border-r-0 px-5 py-3 flex items-center justify-center"
+        >
+          <ChevronLeftIcon className="w-6 h-6 cursor-pointer" />
+        </div>
+        <a
+          onClick={setToCurrentWeek}
+          className="flex-1 text-sm cursor-pointer border-2 border-black px-5 py-3 flex items-center justify-center"
+        >
           vandaag
         </a>
-        <ChevronRightIcon
+        <div
           onClick={nextWeek}
-          className="cursor-pointer h-5 w-5"
-        />
+          className="flex-1 border-2 border-black border-l-0 px-5 py-3 flex items-center justify-center"
+        >
+          <ChevronRightIcon className="w-6 h-6 cursor-pointer" />
+        </div>
       </div>
-      <button
-        onClick={() => {
-          handleSetIsModalOpen(true);
-        }}
-        className="text-sm bg-black text-white md:px-4 px-2 md:py-2 py-1"
-      >
-        Voeg activiteit toe
-      </button>
     </div>
   );
 };
