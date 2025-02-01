@@ -44,7 +44,7 @@ const DayActivities: React.FC<DayActivitiesProps> = ({
                       {act.Omschrijving}
                     </p>
                     <p className="text-sm text-gray-500">
-                      {act.attendees.join(", ")}
+                      {act.attendees.length} - {act.attendees.join(", ")}
                     </p>
                   </div>
                   <div>
