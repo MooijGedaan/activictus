@@ -12,6 +12,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newActivity, setNewActivity] = useState({
     date: "",
+    time: "",
     name: "",
     description: "",
   });
@@ -157,6 +158,7 @@ export default function Home() {
 
   interface NewActivity {
     date: string;
+    time: string;
     name: string;
     description: string;
   }
@@ -186,7 +188,7 @@ export default function Home() {
       .from("activiteiten")
       .insert([
         {
-          Datum: newActivity.date,
+          Datum: newActivity.date + "T" + newActivity.time + ":00",
           Naam: newActivity.name,
           Omschrijving: newActivity.description,
         },
@@ -194,7 +196,18 @@ export default function Home() {
       .select();
 
     if (!error) {
-      setActiviteiten((prevActiviteiten) => [...prevActiviteiten, data[0]]);
+      const newActivityData = data[0];
+      const parsedActivity = {
+        ...newActivityData,
+        Datum: newActivityData.Datum.split("T")[0],
+        Tijd: newActivityData.Datum.split("T")[1],
+        attendees: [],
+      };
+
+      setActiviteiten((prevActiviteiten) => [
+        ...prevActiviteiten,
+        parsedActivity,
+      ]);
       setIsModalOpen(false);
     } else {
       alert(error);

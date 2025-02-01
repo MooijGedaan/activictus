@@ -31,6 +31,7 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
 }) => {
   const [newActivity, setNewActivity] = useState({
     date: "",
+    time: "",
     name: "",
     description: "",
   });
@@ -39,6 +40,7 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
     handleSetIsModalOpen(false);
     setNewActivity({
       date: "",
+      time: "",
       name: "",
       description: "",
     });

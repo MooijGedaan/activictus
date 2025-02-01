@@ -1,5 +1,6 @@
 import React from "react";
 import "./DayActivities.css";
+import { useEffect } from "react";
 
 interface DayActivitiesProps {
   day: { dayOfWeek: string; dayOfMonth: number; month: string; iso: string };
@@ -18,6 +19,10 @@ const DayActivities: React.FC<DayActivitiesProps> = ({
     .filter((a) => a.Datum === day.iso)
     .sort((a, b) => a.Tijd.localeCompare(b.Tijd));
 
+  useEffect(() => {
+    console.log("Updated activiteiten:", activiteiten);
+  }, [activiteiten]);
+
   return (
     <div className=" rounded-lg">
       <p className="text-lg mb-2 text-gray-600">{`${day.dayOfWeek}`}</p>
@@ -32,7 +37,7 @@ const DayActivities: React.FC<DayActivitiesProps> = ({
                   className="flex justify-between items-center dark:bg-neutral-800 border-l-4 border-black pl-2"
                 >
                   <div className="mr-4">
-                    <p className="font-semibold text-lg">{act.Naam}</p>
+                    <p className="font-semibold text-xl">{act.Naam}</p>
                     <p className="text-gray-700">{act.Omschrijving}</p>
                     <p className="text-sm text-gray-500">
                       {act.attendees.join(", ")}

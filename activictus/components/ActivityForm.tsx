@@ -8,6 +8,7 @@ interface ActivityFormProps {
   ) => void;
   activity: {
     date: string;
+    time: string;
     name: string;
     description: string;
   };
@@ -47,6 +48,17 @@ const ActivityForm: React.FC<ActivityFormProps> = ({
               type="date"
               name="date"
               value={activity.date}
+              onChange={onChange}
+              required
+              className="mt-1 block w-full border-b-2  border-black focus:ring-black"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Begin tijd</label>
+            <input
+              type="time"
+              name="time"
+              value={activity.time}
               onChange={onChange}
               required
               className="mt-1 block w-full border-b-2  border-black focus:ring-black"
