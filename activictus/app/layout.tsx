@@ -16,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="">
+      <body className="dark:bg-black">
         <main className="min-h-screen">
           <div className="flex-1 w-full flex flex-col gap-20 items-center mt-5">
             <div className="gap-20 max-w-2xl p-5 w-full">{children}</div>

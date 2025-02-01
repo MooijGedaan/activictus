@@ -70,7 +70,7 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
           onClick={() => {
             handleSetIsModalOpen(true);
           }}
-          className="text-sm bg-black text-white md:px-4 md:py-2 px-2 py-1 hover:bg-yellow-400 md:ml-5"
+          className="text-sm bg-black dark:bg-white dark:text-black text-white md:px-4 md:py-2 px-2 py-1 hover:bg-yellow-400 md:ml-5"
         >
           Voeg activiteit toe
         </button>
@@ -79,19 +79,19 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
       <div className="flex items-stretch">
         <div
           onClick={prevWeek}
-          className="flex-1 border-2 border-black border-r-0 px-5 py-3 flex items-center justify-center"
+          className="flex-1 border-2 dark:border-white border-black border-r-0 px-5 py-3 flex items-center justify-center"
         >
           <ChevronLeftIcon className="w-6 h-6 cursor-pointer" />
         </div>
         <a
           onClick={setToCurrentWeek}
-          className="flex-1 text-sm cursor-pointer border-2 border-black px-5 py-3 flex items-center justify-center"
+          className="flex-1 text-sm cursor-pointer border-2 dark:border-white border-black px-5 py-3 flex items-center justify-center"
         >
           vandaag
         </a>
         <div
           onClick={nextWeek}
-          className="flex-1 border-2 border-black border-l-0 px-5 py-3 flex items-center justify-center"
+          className="flex-1 border-2 dark:border-white border-black border-l-0 px-5 py-3 flex items-center justify-center"
         >
           <ChevronRightIcon className="w-6 h-6 cursor-pointer" />
         </div>

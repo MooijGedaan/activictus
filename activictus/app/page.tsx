@@ -40,6 +40,15 @@ export default function Home() {
         return;
       }
 
+      const intervalId = setInterval(() => {
+        document.documentElement.classList.toggle(
+          "dark",
+          localStorage.currentTheme === "dark" ||
+            (!("theme" in localStorage) &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches)
+        );
+      }, 2000);
+
       let { data: inschrijvingenData, error: inschrijvingenError } =
         await supabase.from("inschrijvingen").select("activiteit_id, naam_lid");
       if (inschrijvingenError) {
