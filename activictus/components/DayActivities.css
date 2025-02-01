@@ -1,0 +1,24 @@
+.hover-box {
+  height: 30px; /* Adjust height as needed */
+  transition: padding-top 0.3s ease, margin-bottom 0.3s ease;
+}
+
+.hover-text {
+  display: none;
+  border: 2px dashed;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-box:hover .hover-text {
+  display: block;
+  opacity: 1;
+}
+
+.hover-box:hover {
+  padding-top: 10px;
+  margin-bottom: 70px;
+}

@@ -9,6 +9,24 @@ import { getWeekNumber, getStartOfWeek, formatDate } from "@/utils/dateUtils";
 export default function Home() {
   const [activiteiten, setActiviteiten] = useState<any[]>([]);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newActivity, setNewActivity] = useState({
+    date: "",
+    name: "",
+    description: "",
+  });
+  const [selectedDate, setSelectedDate] = useState<string | undefined>(
+    undefined
+  );
+
+  const handleSetIsModalOpen = (isOpen: boolean, date?: string) => {
+    setIsModalOpen(isOpen);
+    if (date) {
+      setSelectedDate(date);
+    } else {
+      setSelectedDate(undefined);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,6 +82,11 @@ export default function Home() {
     setCurrentDate(newDate);
   };
 
+  const setToCurrentWeek = () => {
+    const newDate = new Date();
+    setCurrentDate(newDate);
+  };
+
   const startOfWeek = getStartOfWeek(currentDate);
 
   const nameInput = () => {
@@ -77,12 +100,12 @@ export default function Home() {
   const daysOfWeek = Array.from({ length: 7 }, (_, i) => {
     const day = new Date(startOfWeek);
     day.setDate(startOfWeek.getDate() + i);
+    const dayOfWeek = day.toLocaleString("nl-NL", { weekday: "long" });
+    const dayOfWeekAbbreviation = dayOfWeek.slice(0, 2).toUpperCase();
     return {
-      formatted: day.toLocaleString("nl-NL", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-      }),
+      dayOfWeek: dayOfWeekAbbreviation,
+      dayOfMonth: day.getDate(),
+      month: day.toLocaleString("nl-NL", { month: "long" }),
       iso: formatDate(day),
     };
   });
@@ -132,17 +155,71 @@ export default function Home() {
     }
   };
 
+  interface NewActivity {
+    date: string;
+    name: string;
+    description: string;
+  }
+
+  interface HandleInputChangeEvent {
+    target: {
+      name: string;
+      value: string;
+    };
+  }
+
+  const handleInputChange = (e: HandleInputChangeEvent) => {
+    const { name, value } = e.target;
+    setNewActivity((prevNewActivity: NewActivity) => ({
+      ...prevNewActivity,
+      [name]: value,
+    }));
+  };
+
+  interface FormSubmitEvent extends React.FormEvent<HTMLFormElement> {}
+
+  const handleFormSubmit = async (e: FormSubmitEvent) => {
+    e.preventDefault();
+    const supabase = createClient();
+
+    const { data, error } = await supabase
+      .from("activiteiten")
+      .insert([
+        {
+          Datum: newActivity.date,
+          Naam: newActivity.name,
+          Omschrijving: newActivity.description,
+        },
+      ])
+      .select();
+
+    if (!error) {
+      setActiviteiten((prevActiviteiten) => [...prevActiviteiten, data[0]]);
+      setIsModalOpen(false);
+    } else {
+      alert(error);
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="max-w-lg">
+    <div className="font-wotfard ">
       <WeekNavigation
         weekNumber={weekNumber}
         prevWeek={prevWeek}
         nextWeek={nextWeek}
+        setToCurrentWeek={setToCurrentWeek}
+        handleInputChange={handleInputChange}
+        handleFormSubmit={handleFormSubmit}
+        handleSetIsModalOpen={handleSetIsModalOpen}
+        isModalOpen={isModalOpen}
+        selectedDate={selectedDate}
       />
       <ActivitiesList
         daysOfWeek={daysOfWeek}
         activiteiten={activiteiten}
         addAanwezigheid={addAanwezigheid}
+        handleSetIsModalOpen={handleSetIsModalOpen}
       />
     </div>
   );

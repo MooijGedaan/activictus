@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main className="min-h-screen">
-          <div className="flex-1 w-full flex flex-col gap-20 items-center">
-            <div className="gap-20 max-w-5xl p-5">{children}</div>
+          <div className="flex-1 w-full flex flex-col gap-20 items-center mt-5">
+            <div className="gap-20 max-w-2xl p-5 w-full">{children}</div>
           </div>
         </main>
       </body>
