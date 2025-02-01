@@ -50,7 +50,7 @@ const DayActivities: React.FC<DayActivitiesProps> = ({
                   <div>
                     <button
                       onClick={() => addAanwezigheid(act.id)}
-                      className="bg-black text-white md:px-4 md:py-2 px-2 py-1 hover:bg-blue-600 transition"
+                      className="bg-black text-white md:px-4 md:py-2 px-2 py-1 hover:bg-yellow-400 transition"
                     >
                       Aanwezig
                     </button>

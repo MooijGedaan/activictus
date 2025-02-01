@@ -70,7 +70,7 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
           onClick={() => {
             handleSetIsModalOpen(true);
           }}
-          className="text-sm bg-black text-white md:px-4 px-2 md:py-2 py-1 md:ml-5"
+          className="text-sm bg-black text-white md:px-4 md:py-2 px-2 py-1 hover:bg-yellow-400 md:ml-5"
         >
           Voeg activiteit toe
         </button>
