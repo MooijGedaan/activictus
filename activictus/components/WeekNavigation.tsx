@@ -47,7 +47,7 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
   };
 
   return (
-    <div className="flex justify-between mb-12 items-center">
+    <div className="md:flex justify-between mb-12 items-center">
       {isModalOpen && (
         <ActivityForm
           onSubmit={(e) => {
@@ -63,14 +63,14 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
           selectedDate={selectedDate}
         />
       )}
-      <div className="md:flex md:items-center">
-        <h2 className="md:text-4xl text-2xl font-medium">Week {weekNumber}</h2>
+      <div className="flex md:items-center justify-between mb-5 md:mb-0">
+        <h2 className="md:text-4xl text-4xl font-medium">Week {weekNumber}</h2>
 
         <button
           onClick={() => {
             handleSetIsModalOpen(true);
           }}
-          className="text-sm bg-black text-white md:px-4 px-2 md:py-2 py-1 mt-4 md:mt-0 md:ml-4"
+          className="text-sm bg-black text-white md:px-4 px-2 md:py-2 py-1 md:ml-5"
         >
           Voeg activiteit toe
         </button>
