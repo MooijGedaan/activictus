@@ -63,9 +63,9 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
           selectedDate={selectedDate}
         />
       )}
-      <h2 className="text-4xl font-medium">Week {weekNumber}</h2>
+      <h2 className="md:text-4xl text-xl font-medium">Week {weekNumber}</h2>
 
-      <div className="flex items-center space-x-9">
+      <div className="flex items-center md:space-x-9 space-x-2">
         <ChevronLeftIcon
           onClick={prevWeek}
           className="cursor-pointer h-5 w-5"
@@ -82,7 +82,7 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
         onClick={() => {
           handleSetIsModalOpen(true);
         }}
-        className="text-sm bg-black text-white px-4 py-2"
+        className="text-sm bg-black text-white md:px-4 px-2 md:py-2 py-1"
       >
         Voeg activiteit toe
       </button>
