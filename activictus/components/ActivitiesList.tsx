@@ -20,7 +20,7 @@ const ActivitiesList: React.FC<ActivitiesListProps> = ({
   handleSetIsModalOpen,
 }) => {
   return (
-    <div className="space-y-8 w-full">
+    <div className="space-y-1 w-full">
       {daysOfWeek.map((day, index) => (
         <DayActivities
           key={index}
