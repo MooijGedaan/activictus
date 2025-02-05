@@ -4,7 +4,12 @@ import { createClient } from "@/utils/supabase/client";
 import React, { useState, useEffect } from "react";
 import WeekNavigation from "@/components/WeekNavigation";
 import ActivitiesList from "@/components/ActivitiesList";
-import { getWeekNumber, getStartOfWeek, formatDate } from "@/utils/dateUtils";
+import {
+  getWeekNumber,
+  getStartOfWeek,
+  formatDate,
+  getMonthName,
+} from "@/utils/dateUtils";
 
 export default function Home() {
   const [activiteiten, setActiviteiten] = useState<any[]>([]);
@@ -79,6 +84,7 @@ export default function Home() {
   }, []);
 
   const weekNumber = getWeekNumber(currentDate);
+  const monthName = getMonthName(currentDate);
 
   const nextWeek = () => {
     const newDate = new Date(currentDate);
@@ -236,6 +242,8 @@ export default function Home() {
         handleSetIsModalOpen={handleSetIsModalOpen}
         isModalOpen={isModalOpen}
         selectedDate={selectedDate}
+        year={String(currentDate.getFullYear())}
+        monthName={monthName}
       />
       <ActivitiesList
         daysOfWeek={daysOfWeek}

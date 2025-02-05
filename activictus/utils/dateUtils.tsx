@@ -20,3 +20,21 @@ export const formatDate = (date: Date): string => {
   const adjustedDate = new Date(date.getTime() - offset * 60 * 1000);
   return adjustedDate.toISOString().split("T")[0]; // Format as YYYY-MM-DD for comparison
 };
+
+export const getMonthName = (date: Date): string => {
+  const months = [
+    "JAN",
+    "FEB",
+    "MRT",
+    "APR",
+    "MEI",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEPT",
+    "OKT",
+    "NOV",
+    "DEC",
+  ];
+  return months[date.getMonth()];
+};
