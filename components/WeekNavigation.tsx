@@ -64,7 +64,7 @@ const WeekNavigation: React.FC = () => {
           activity={editActivity} />
       )}
       <div className="mb-5 md:mb-0 flex flex-row md:flex-col justify-between">
-        <h2 className="md:text-4xl text-4xl font-medium">
+        <h2 className="md:text-4xl text-2xl font-medium">
           [{monthName}] Week {weekNumber}
         </h2>
         <button
@@ -80,19 +80,19 @@ const WeekNavigation: React.FC = () => {
       <div className="flex items-stretch cursor-pointer">
         <div
           onClick={prevWeek}
-          className="flex-1 border-2 dark:border-white border-black border-r-0 px-7 py-3 flex items-center justify-center"
+          className="flex-1 border-2 dark:border-white border-black border-r-0 md:px-7 md:py-3 px-5 py-2 flex items-center justify-center"
         >
-          <ChevronLeftIcon className="w-6 h-6" />
+          <ChevronLeftIcon className="w-6 h-6 " />
         </div>
         <a
           onClick={setToCurrentWeek}
-          className="flex-1 text-sm cursor-pointer border-2 dark:border-white border-black px-7 py-3 flex items-center justify-center"
+          className="flex-1 text-sm cursor-pointer border-2 dark:border-white border-black md:px-7 md:py-3 px-5 py-2 flex items-center justify-center"
         >
           vandaag
         </a>
         <div
           onClick={nextWeek}
-          className="flex-1 border-2 dark:border-white border-black border-l-0 px-7 py-3 flex items-center justify-center"
+          className="flex-1 border-2 dark:border-white border-black border-l-0 md:px-7 md:py-3 px-5 py-2 flex items-center justify-center"
         >
           <ChevronRightIcon className="w-6 h-6 " />
         </div>
