@@ -85,13 +85,13 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
       <div className="flex items-stretch cursor-pointer">
         <div
           onClick={prevWeek}
-          className="flex-1 border-2  dark:border-white border-black border-r-0 px-7 py-3 flex items-center justify-center"
+          className="flex-1 border-2 dark:border-white border-black border-r-0 px-7 py-3 flex items-center justify-center"
         >
           <ChevronLeftIcon className="w-6 h-6" />
         </div>
         <a
           onClick={setToCurrentWeek}
-          className="flex-1 text-sm border-2 dark:border-white border-black px-7 py-3 flex items-center justify-center"
+          className="flex-1 text-sm cursor-pointer border-2 dark:border-white border-black px-7 py-3 flex items-center justify-center"
         >
           vandaag
         </a>
