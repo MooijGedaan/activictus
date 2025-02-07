@@ -29,7 +29,7 @@ const DayActivities: React.FC<DayActivitiesProps> = ({
               {activiteitenOpDag.map((act, i) => (
                 <li
                   key={i}
-                  className="flex justify-between items-center dark:border-white border-l-4 border-black pl-2"
+                  className="flex md:flex-row flex-col justify-between md:items-center dark:border-white border-l-4 border-black pl-2"
                 >
                   <div className="mr-4">
                     <p className="font-semibold md:text-xl text-md ">
@@ -43,14 +43,14 @@ const DayActivities: React.FC<DayActivitiesProps> = ({
                         act.attendees.length + " - " + act.attendees.join(", ")}
                     </p>
                   </div>
-                  <div className="flex flex-col space-y-0">
+                  <div className="flex md:flex-col flex-row space-y-0 md:mt-0 mt-2">
                     <button
                       onClick={() => addAanwezigheid(act.id)}
-                      className="bg-black text-white dark:bg-white dark:text-black w-28 h-10 hover:bg-yellow-400 transition"
+                      className="bg-black text-white dark:bg-white dark:text-black md:w-28 w-full h-10 hover:bg-yellow-400 transition"
                     >
                       Aanwezig
                     </button>
-                    <a onClick={() => handleSetIsEditModalOpen(true, act)} className="border-black border-2 border-t-0 w-28 h-10 flex items-center justify-center cursor-pointer hover:border-yellow-400 hover:text-yellow-300">Wijzig</a>
+                    <a onClick={() => handleSetIsEditModalOpen(true, act)} className="border-black border-2 md:border-t-0 border-l-0 md:w-28 w-full h-10 flex items-center justify-center cursor-pointer hover:border-yellow-400 hover:text-yellow-300">Wijzig</a>
                   </div>
                 </li>
               ))}
