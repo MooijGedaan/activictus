@@ -7,10 +7,10 @@ interface ActivityFormProps {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   activity: {
-    date: string;
-    time: string;
-    name: string;
-    description: string;
+    Datum: string;
+    Tijd: string;
+    Naam: string;
+    Omschrijving: string;
   };
   selectedDate?: string; // Add the date prop
 }
@@ -20,15 +20,15 @@ const ActivityForm: React.FC<ActivityFormProps> = ({
   onClose,
   onChange,
   activity,
-  selectedDate, // Destructure the date prop
+  selectedDate,
 }) => {
   useEffect(() => {
-    if (selectedDate && selectedDate !== activity.date) {
+    if (selectedDate && selectedDate !== activity.Datum) {
       onChange({
-        target: { name: "date", value: selectedDate },
+        target: { name: "Datum", value: selectedDate },
       } as React.ChangeEvent<HTMLInputElement>);
     }
-  }, [selectedDate, activity.date, onChange]);
+  }, [selectedDate]);
 
   return (
     <div className="fixed inset-0 p-5 flex items-center justify-center bg-black bg-opacity-50">
@@ -46,8 +46,8 @@ const ActivityForm: React.FC<ActivityFormProps> = ({
             <label className="block text-gray-700">Datum</label>
             <input
               type="date"
-              name="date"
-              value={activity.date}
+              name="Datum"
+              value={activity.Datum}
               onChange={onChange}
               required
               className="mt-1 block w-full border-b-2  border-black focus:ring-black"
@@ -57,8 +57,8 @@ const ActivityForm: React.FC<ActivityFormProps> = ({
             <label className="block text-gray-700">Begin tijd</label>
             <input
               type="time"
-              name="time"
-              value={activity.time}
+              name="Tijd"
+              value={activity.Tijd}
               onChange={onChange}
               required
               className="mt-1 block w-full border-b-2  border-black focus:ring-black"
@@ -68,8 +68,8 @@ const ActivityForm: React.FC<ActivityFormProps> = ({
             <label className="block text-gray-700">Activiteit naam</label>
             <input
               type="text"
-              name="name"
-              value={activity.name}
+              name="Naam"
+              value={activity.Naam}
               onChange={onChange}
               required
               className="mt-1 block w-full  border-black border-b-2 shadow-sm focus:ring-black"
@@ -78,8 +78,8 @@ const ActivityForm: React.FC<ActivityFormProps> = ({
           <div className="mb-4">
             <label className="block text-gray-700">Omschrijving</label>
             <textarea
-              name="description"
-              value={activity.description}
+              name="Omschrijving"
+              value={activity.Omschrijving}
               onChange={onChange}
               required
               className="mt-1 block w-full border-b-2  border-black focus:ring-black"

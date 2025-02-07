@@ -1,27 +1,22 @@
 import React from "react";
 import "./DayActivities.css";
 import { useEffect } from "react";
+import { useAppContext } from "@/app/AppContext";
+
 
 interface DayActivitiesProps {
   day: { dayOfWeek: string; dayOfMonth: number; month: string; iso: string };
-  activiteiten: any[];
-  addAanwezigheid: (id: string) => void;
-  handleSetIsModalOpen: (isOpen: boolean, date?: string) => void;
 }
 
 const DayActivities: React.FC<DayActivitiesProps> = ({
   day,
-  activiteiten,
-  addAanwezigheid,
-  handleSetIsModalOpen,
 }) => {
+  const { daysOfWeek, activiteiten, addAanwezigheid, handleSetIsModalOpen, handleSetIsEditModalOpen } = useAppContext();
+
   const activiteitenOpDag = activiteiten
     .filter((a) => a.Datum === day.iso)
     .sort((a, b) => a.Tijd.localeCompare(b.Tijd));
 
-  useEffect(() => {
-    console.log("Updated activiteiten:", activiteiten);
-  }, [activiteiten]);
 
   return (
     <div className=" dark:text-white">
@@ -48,13 +43,14 @@ const DayActivities: React.FC<DayActivitiesProps> = ({
                         act.attendees.length + " - " + act.attendees.join(", ")}
                     </p>
                   </div>
-                  <div>
+                  <div className="flex flex-col space-y-0">
                     <button
                       onClick={() => addAanwezigheid(act.id)}
-                      className="bg-black text-white dark:bg-white dark:text-black md:px-4 md:py-2 px-2 py-1 hover:bg-yellow-400 transition"
+                      className="bg-black text-white dark:bg-white dark:text-black w-28 h-10 hover:bg-yellow-400 transition"
                     >
                       Aanwezig
                     </button>
+                    <a onClick={() => handleSetIsEditModalOpen(true, act)} className="border-black border-2 border-t-0 w-28 h-10 flex items-center justify-center cursor-pointer hover:border-yellow-400 hover:text-yellow-300">Wijzig</a>
                   </div>
                 </li>
               ))}
@@ -68,9 +64,9 @@ const DayActivities: React.FC<DayActivitiesProps> = ({
         }}
         className="hover-box hover:cursor-pointer"
       >
-        <p className="hover-text  dark:text-white">Voeg activiteit toe</p>
+        <p className="hover-text dark:text-white">Voeg activiteit toe</p>
       </div>
-    </div>
+    </div >
   );
 };
 

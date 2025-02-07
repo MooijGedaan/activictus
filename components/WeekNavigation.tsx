@@ -1,55 +1,35 @@
 import React, { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import ActivityForm from "./ActivityForm";
+import { useAppContext } from "@/app/AppContext";
+
 import { getMonthName } from "@/utils/dateUtils";
+import EditActivityForm from "./EditActivityForm";
 
-interface HandleInputChangeEvent
-  extends React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> {}
-interface FormSubmitEvent extends React.FormEvent<HTMLFormElement> {}
 
-interface WeekNavigationProps {
-  weekNumber: number;
-  prevWeek: () => void;
-  nextWeek: () => void;
-  setToCurrentWeek: () => void;
-  handleInputChange: (e: HandleInputChangeEvent) => void;
-  handleFormSubmit: (e: FormSubmitEvent) => void;
-  handleSetIsModalOpen: (isOpen: boolean, date?: string) => void;
-  isModalOpen: boolean;
-  selectedDate?: string; // Add the date prop: string;
-  monthName: string;
-  year: string;
-}
-
-const WeekNavigation: React.FC<WeekNavigationProps> = ({
-  weekNumber,
-  prevWeek,
-  nextWeek,
-  setToCurrentWeek,
-  handleInputChange,
-  handleFormSubmit,
-  handleSetIsModalOpen,
-  isModalOpen,
-  selectedDate,
-  monthName,
-  year,
-}) => {
-  const [newActivity, setNewActivity] = useState({
-    date: "",
-    time: "",
-    name: "",
-    description: "",
-  });
-
-  const handleFormClose = () => {
-    handleSetIsModalOpen(false);
-    setNewActivity({
-      date: "",
-      time: "",
-      name: "",
-      description: "",
-    });
-  };
+const WeekNavigation: React.FC = () => {
+  const {
+    weekNumber,
+    prevWeek,
+    nextWeek,
+    setToCurrentWeek,
+    handleInputChange,
+    handleFormSubmit,
+    handleSetIsModalOpen,
+    isModalOpen,
+    selectedDate,
+    year,
+    monthName,
+    handleFormClose,
+    setNewActivity,
+    newActivity,
+    isEditModalOpen,
+    handleEditFormSubmit,
+    handleEditFormClose,
+    handleEditInputChange,
+    editActivity,
+    handleDeleteActivity,
+  } = useAppContext();
 
   return (
     <div className="md:flex justify-between mb-12">
@@ -66,7 +46,22 @@ const WeekNavigation: React.FC<WeekNavigationProps> = ({
           }}
           activity={newActivity}
           selectedDate={selectedDate}
+
         />
+      )}
+      {isEditModalOpen && (
+        <EditActivityForm
+          onSubmit={(e) => {
+            handleEditFormSubmit(e);
+            handleEditFormClose();
+          }}
+          onClose={handleEditFormClose}
+          onDelete={() => handleDeleteActivity(editActivity.id)}
+          onChange={(e) => {
+            handleEditInputChange(e);
+            setNewActivity({ ...newActivity, [e.target.name]: e.target.value });
+          }}
+          activity={editActivity} />
       )}
       <div className="mb-5 md:mb-0 flex flex-row md:flex-col justify-between">
         <h2 className="md:text-4xl text-4xl font-medium">
