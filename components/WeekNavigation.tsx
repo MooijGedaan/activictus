@@ -6,63 +6,21 @@ import { useAppContext } from "@/app/AppContext";
 import { getMonthName } from "@/utils/dateUtils";
 import EditActivityForm from "./EditActivityForm";
 
-
 const WeekNavigation: React.FC = () => {
   const {
     weekNumber,
     prevWeek,
     nextWeek,
     setToCurrentWeek,
-    handleInputChange,
-    handleFormSubmit,
     handleSetIsModalOpen,
     isModalOpen,
-    selectedDate,
-    year,
     monthName,
-    handleFormClose,
-    setNewActivity,
-    newActivity,
     isEditModalOpen,
-    handleEditFormSubmit,
-    handleEditFormClose,
-    handleEditInputChange,
-    editActivity,
-    handleDeleteActivity,
   } = useAppContext();
 
   return (
     <div className="md:flex justify-between mb-12">
-      {isModalOpen && (
-        <ActivityForm
-          onSubmit={(e) => {
-            handleFormSubmit(e);
-            handleFormClose();
-          }}
-          onClose={handleFormClose}
-          onChange={(e) => {
-            handleInputChange(e);
-            setNewActivity({ ...newActivity, [e.target.name]: e.target.value });
-          }}
-          activity={newActivity}
-          selectedDate={selectedDate}
-
-        />
-      )}
-      {isEditModalOpen && (
-        <EditActivityForm
-          onSubmit={(e) => {
-            handleEditFormSubmit(e);
-            handleEditFormClose();
-          }}
-          onClose={handleEditFormClose}
-          onDelete={() => handleDeleteActivity(editActivity.id)}
-          onChange={(e) => {
-            handleEditInputChange(e);
-            setNewActivity({ ...newActivity, [e.target.name]: e.target.value });
-          }}
-          activity={editActivity} />
-      )}
+      {isModalOpen && <ActivityForm />}
       <div className="mb-5 md:mb-0 flex flex-row md:flex-col justify-between">
         <h2 className="md:text-4xl text-2xl font-medium">
           [{monthName}] Week {weekNumber}
@@ -71,7 +29,7 @@ const WeekNavigation: React.FC = () => {
           onClick={() => {
             handleSetIsModalOpen(true);
           }}
-          className="text-sm bg-black dark:bg-white dark:text-black text-white md:px-4 md:py-2 px-3 py-2 hover:bg-yellow-400 md:mt-4"
+          className=" text-sm bg-black dark:bg-white dark:text-black text-white md:px-4 md:py-2 px-3 py-2 hover:bg-yellow-400 md:mt-4"
         >
           Voeg activiteit toe
         </button>
