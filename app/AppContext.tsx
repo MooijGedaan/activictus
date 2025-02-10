@@ -24,6 +24,7 @@ interface AppContextProps {
   prevWeek: () => void;
   setToCurrentWeek: () => void;
   handleInputChange: (e: any) => void;
+  handleInputChangeDate: (e: Date) => void;
   handleFormSubmit: (e: any) => void;
   addAanwezigheid: (id: string, remove?: boolean) => void;
   isEditModalOpen: boolean;
@@ -38,6 +39,7 @@ interface AppContextProps {
   shareID: string;
   setShareID: (id: string) => void;
   setEditActivity: (activity: any) => void;
+  setSelectedDate: (date: string | undefined) => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -380,6 +382,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
   };
 
+  const handleInputChangeDate = (e: Date) => {
+    console.log(formatDate(e));
+    setNewActivity((prevNewActivity: any) => ({
+      ...prevNewActivity,
+      Datum: formatDate(e),
+    }));
+  };
+
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
     const supabase = createClient();
@@ -423,6 +433,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         isModalOpen,
         newActivity,
         selectedDate,
+        setSelectedDate,
         weekNumber,
         monthName,
         year,
@@ -448,6 +459,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         shareID,
         setEditActivity,
         setShareID,
+        handleInputChangeDate,
       }}
     >
       {children}
