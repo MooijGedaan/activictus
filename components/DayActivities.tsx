@@ -61,7 +61,7 @@ const DayActivities: React.FC<DayActivitiesProps> = ({ day }) => {
 
   return (
     <div className=" dark:text-white">
-      {isEditModalOpen && <EditActivityForm />}
+      <EditActivityForm />
       <p className="md:text-lg text-md mb-2 text-gray-600">{`${day.dayOfWeek}`}</p>
       <div className="border-t-4 border-black dark:border-white pt-1">
         <p className="md:text-4xl text-3xl font-semibold my-2">{`${day.dayOfMonth < 10 ? "0" + day.dayOfMonth : day.dayOfMonth}`}</p>
