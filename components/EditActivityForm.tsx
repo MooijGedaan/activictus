@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "@/app/AppContext";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { nl } from "date-fns/locale";
 import {
   Dialog,
   DialogContent,
@@ -10,6 +12,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 const EditActivityForm: React.FC = () => {
   const {
@@ -19,15 +29,19 @@ const EditActivityForm: React.FC = () => {
     handleEditFormClose,
     editActivity,
     isEditModalOpen,
+    selectedDate,
+    handleEditInputChangeDate,
   } = useAppContext();
 
   useEffect(() => {
-    if (editActivity.Datum) {
+    if (selectedDate && selectedDate !== editActivity.Datum) {
       handleEditInputChange({
-        target: { name: "Datum", value: editActivity.Datum },
+        target: { name: "Datum", value: selectedDate },
       } as React.ChangeEvent<HTMLInputElement>);
     }
-  }, [editActivity.Datum]);
+  }, [selectedDate]);
+
+  const [date, setDate] = useState<Date>();
 
   return (
     <Dialog open={isEditModalOpen} onOpenChange={handleEditFormClose}>
@@ -38,14 +52,38 @@ const EditActivityForm: React.FC = () => {
         <form className="space-y-10" onSubmit={handleEditFormSubmit}>
           <div className="mb-4">
             <Label className="block text-gray-700">Datum</Label>
-            <Input
-              type="date"
-              name="Datum"
-              value={editActivity.Datum}
-              onChange={handleEditInputChange}
-              required
-              className="mt-1 block w-full border-b-2 border-black focus:ring-black text-black"
-            />
+            <Popover modal={true}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-full border-b-2 border-black border-l-0 mt-1 justify-start text-left font-normal",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-full" />
+                  {date ? (
+                    format(date, "PPP", { locale: nl })
+                  ) : (
+                    <span>Kies een datum</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Calendar
+                  locale={nl}
+                  mode="single"
+                  selected={date}
+                  onSelect={(e) => {
+                    setDate(e);
+                    if (e) {
+                      handleEditInputChangeDate(e);
+                    }
+                  }}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
           </div>
           <div className="mb-4">
             <Label className="block text-gray-700">Begin tijd</Label>

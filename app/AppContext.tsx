@@ -40,6 +40,7 @@ interface AppContextProps {
   setShareID: (id: string) => void;
   setEditActivity: (activity: any) => void;
   setSelectedDate: (date: string | undefined) => void;
+  handleEditInputChangeDate: (e: Date) => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -117,6 +118,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     setEditActivity((prevEditActivity: any) => ({
       ...prevEditActivity,
       [name]: value,
+    }));
+  };
+
+  const handleEditInputChangeDate = (e: Date) => {
+    setEditActivity((prevEditActivity: any) => ({
+      ...prevEditActivity,
+      Datum: formatDate(e),
     }));
   };
 
@@ -460,6 +468,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         setEditActivity,
         setShareID,
         handleInputChangeDate,
+        handleEditInputChangeDate,
       }}
     >
       {children}

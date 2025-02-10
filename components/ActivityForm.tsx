@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useAppContext } from "@/app/AppContext";
 import { Calendar as CalendarIcon } from "lucide-react";
+import { nl } from "date-fns/locale";
 
 import {
   Dialog,
@@ -62,11 +63,16 @@ const ActivityForm: React.FC = () => {
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-full" />
-                  {date ? format(date, "PPP") : <span>Kies een datum</span>}
+                  {date ? (
+                    format(date, "PPP", { locale: nl })
+                  ) : (
+                    <span>Kies een datum</span>
+                  )}
                 </Button>
               </PopoverTrigger>
               <PopoverContent>
                 <Calendar
+                  locale={nl}
                   mode="single"
                   selected={date}
                   onSelect={(e) => {
