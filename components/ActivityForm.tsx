@@ -41,7 +41,9 @@ const ActivityForm: React.FC = () => {
     }
   }, [selectedDate]);
 
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = React.useState<Date | null>(
+    selectedDate ? new Date(selectedDate) : null
+  );
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleFormClose}>
@@ -74,10 +76,10 @@ const ActivityForm: React.FC = () => {
                 <Calendar
                   locale={nl}
                   mode="single"
-                  selected={date}
+                  selected={date || undefined}
                   onSelect={(e) => {
-                    setDate(e);
                     if (e) {
+                      setDate(e);
                       handleInputChangeDate(e);
                     }
                   }}
