@@ -391,7 +391,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const handleInputChangeDate = (e: Date) => {
-    console.log(formatDate(e));
     setNewActivity((prevNewActivity: any) => ({
       ...prevNewActivity,
       Datum: formatDate(e),

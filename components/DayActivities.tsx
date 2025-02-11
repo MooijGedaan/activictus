@@ -48,7 +48,6 @@ const DayActivities: React.FC<DayActivitiesProps> = ({ day }) => {
     .sort((a, b) => a.Tijd.localeCompare(b.Tijd));
 
   const [currentPerson, setCurrentPerson] = useState("");
-  const [isDialogEditOpen, setIsDialogEditOpen] = useState(false);
   const [isDialogShareOpen, setIsDialogShareOpen] = useState(false);
 
   useEffect(() => {
@@ -108,7 +107,13 @@ const DayActivities: React.FC<DayActivitiesProps> = ({ day }) => {
                           <DropdownMenuItem
                             onClick={() => {
                               handleSetIsEditModalOpen(true);
-                              setEditActivity(act);
+                              setEditActivity({
+                                Datum: act.Datum,
+                                Naam: act.Naam,
+                                Omschrijving: act.Omschrijving,
+                                Tijd: act.Tijd,
+                                id: act.id,
+                              });
                             }}
                           >
                             Activiteit aanpassen
@@ -176,7 +181,6 @@ const DayActivities: React.FC<DayActivitiesProps> = ({ day }) => {
                       />
                     )}
 
-                    {isDialogEditOpen && <EditActivityForm />}
                     {/* <div
                       onClick={() => {
                         setShareID(String(act.id));

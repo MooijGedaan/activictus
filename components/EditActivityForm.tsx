@@ -34,6 +34,10 @@ const EditActivityForm: React.FC = () => {
   } = useAppContext();
 
   useEffect(() => {
+    setDate(editActivity.Datum ? new Date(editActivity.Datum) : null);
+  }, [editActivity]);
+
+  useEffect(() => {
     if (selectedDate && selectedDate !== editActivity.Datum) {
       handleEditInputChange({
         target: { name: "Datum", value: selectedDate },
@@ -41,7 +45,9 @@ const EditActivityForm: React.FC = () => {
     }
   }, [selectedDate]);
 
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = React.useState<Date | null>(
+    editActivity.Datum ? new Date(editActivity.Datum) : null
+  );
 
   return (
     <Dialog open={isEditModalOpen} onOpenChange={handleEditFormClose}>
@@ -73,10 +79,10 @@ const EditActivityForm: React.FC = () => {
                 <Calendar
                   locale={nl}
                   mode="single"
-                  selected={date}
+                  selected={date || undefined}
                   onSelect={(e) => {
-                    setDate(e);
                     if (e) {
+                      setDate(e);
                       handleEditInputChangeDate(e);
                     }
                   }}
