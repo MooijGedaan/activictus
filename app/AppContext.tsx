@@ -285,10 +285,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const nameInput = () => {
     let person = prompt("Wat is je naam?", "");
+    if (person === null) return null;
     const d = new Date();
     d.setTime(d.getTime() + 1000 * 60 * 60 * 24 * 365);
     let expires = "expires=" + d.toUTCString();
     document.cookie = "name=" + person + ";" + expires + ";path=/";
+    return person;
   };
 
   const daysOfWeek = Array.from({ length: 7 }, (_, i) => {
@@ -342,7 +344,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     } else {
       while (!person || person === "null") {
-        nameInput();
+        const input = nameInput();
+        if (input === null) return;
         person = getNameFromCookies();
       }
 
@@ -428,6 +431,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         parsedActivity,
       ]);
       setIsModalOpen(false);
+      setNewActivity({
+        Datum: "",
+        Tijd: "",
+        Naam: "",
+        Omschrijving: "",
+      });
     } else {
       alert(error);
       console.log(error);
