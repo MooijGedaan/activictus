@@ -365,6 +365,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         return;
       }
 
+      console.log("Proberen in te schrijven:", id, person);
+
       const { data, error } = await supabase
         .from("inschrijvingen")
         .insert([{ activiteit_id: id, naam_lid: person }])
